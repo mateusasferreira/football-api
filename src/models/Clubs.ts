@@ -1,6 +1,7 @@
 import {prop} from '@typegoose/typegoose'
-import {ArgsType, Field, ID, Int} from 'type-graphql'
+import {ArgsType, Field, ID, Int, ObjectType} from 'type-graphql'
 
+@ObjectType()
 export class Club {
 	@Field(type => ID)
 	id: string
