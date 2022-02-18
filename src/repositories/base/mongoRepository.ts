@@ -27,8 +27,10 @@ export abstract class MongoRepository<T, U extends AnyParamConstructor<T> = AnyP
       return this.collection.insertMany(item)
   }
 
-  public async update(id: string, item: Partial<T>): Promise<T[] | null> {
-      return this.collection.findByIdAndUpdate(id, item)
+  public async update(id: string, item: Partial<T>): Promise<T | null> {
+    await this.collection.findByIdAndUpdate(id, item)
+
+    return this.findOne(id)
   }
 
   public async delete(id: string): Promise<boolean | null> {
