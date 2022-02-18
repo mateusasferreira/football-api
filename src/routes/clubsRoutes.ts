@@ -5,10 +5,10 @@ const routes = Router()
 
 const clubsController = new ClubsController()
 
-routes.get('/clubs', clubsController.find)
-routes.get('/clubs/:id', clubsController.findOne)
-routes.post('/clubs', clubsController.insert)
-routes.put('/clubs/:id', clubsController.update)
-routes.delete('/clubs/:id', clubsController.delete)
+routes.get('/clubs', clubsController.find.bind(clubsController))
+routes.get('/clubs/:id', clubsController.findOne.bind(clubsController))
+routes.post('/clubs', clubsController.insert.bind(clubsController))
+routes.put('/clubs/:id', clubsController.update.bind(clubsController))
+routes.delete('/clubs/:id', clubsController.delete.bind(clubsController))
 
 export default routes

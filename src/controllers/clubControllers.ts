@@ -3,10 +3,14 @@ import { Club } from "../models/Clubs"
 import { ClubsRepository } from "../repositories/clubsRepository"
 
 export class ClubsController {
-  
+  private readonly clubsRepo
+
+  constructor(){
+    this.clubsRepo = new ClubsRepository(Club)
+  }
+
   public async find(req: Request, res: Response){
     try {
-      const repo = new ClubsRepository(Club)
       
       const {name, country} = req.query
     
@@ -14,7 +18,7 @@ export class ClubsController {
 
       Object.assign(args, name && {name}, country && {country})
 
-      const clubs = await repo.find(args)
+      const clubs = await this.clubsRepo.find(args)
 
       res.status(200).json(clubs)
     } catch (e) {
@@ -25,11 +29,10 @@ export class ClubsController {
   
   async findOne(req: Request, res: Response){
     try {
-      const repo = new ClubsRepository(Club)
 
       const {id} = req.params
 
-      const club = await repo.findOne(id)
+      const club = await this.clubsRepo.findOne(id)
 
       if(!club) throw new Error("No Club Found");
     
@@ -42,13 +45,12 @@ export class ClubsController {
   
   async insert(req: Request, res: Response){
     try {
-      const repo = new ClubsRepository(Club)
 
       const {name, country} = req.body
 
       if(!name || !country) throw new Error("Fields name and country are required");
       
-      const club = await repo.insert({name, country})
+      const club = await this.clubsRepo.insert({name, country})
   
       res.status(201).json(club)
     } catch (e) {
@@ -59,7 +61,6 @@ export class ClubsController {
 
   async update(req: Request, res: Response){
     try {
-      const repo = new ClubsRepository(Club)
 
       const {id} = req.params
     
@@ -69,7 +70,7 @@ export class ClubsController {
 
       Object.assign(args, name && {name}, country && {country})
 
-      const club = await repo.update(id, {name, country})
+      const club = await this.clubsRepo.update(id, {name, country})
 
       res.status(200).json(club)
     } catch (e) {
@@ -80,11 +81,10 @@ export class ClubsController {
 
   async delete(req: Request, res: Response){
     try {
-      const repo = new ClubsRepository(Club)
 
       const {id} = req.params
 
-      await repo.delete(id)
+      await this.clubsRepo.delete(id)
 
       res.sendStatus(200)
     } catch (e) {
