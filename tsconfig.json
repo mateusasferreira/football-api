@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
-    "target": "es2017",                                     
+    "target": "es2018",                                     
     "module": "commonjs",
-    "lib": ["ES6"],                                  
+    "lib": ["es2018", "esnext.asynciterable"],                                  
     "rootDir": "./src",                                  
     "baseUrl": ".",
     "outDir": "./dist",                           
@@ -10,6 +10,7 @@
     "esModuleInterop": true,                        
     "skipLibCheck": true,
     "strictPropertyInitialization": false,
+    "emitDecoratorMetadata": true,
     "experimentalDecorators": true
   },
   "include": [
