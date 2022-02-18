@@ -1,6 +1,6 @@
 import { Club } from "../models/Clubs";
 import { ClubsRepository } from "../repositories/clubsRepository";
-import { Arg, Query, Resolver } from "type-graphql";
+import { Arg, Mutation, Query, Resolver } from "type-graphql";
 
 @Resolver()
 export class ClubsResolver {
@@ -34,7 +34,16 @@ export class ClubsResolver {
     if(!club) throw new Error("No Club Found");
 
     return club
-    
+  }
+
+  @Mutation(returns =>  Club)
+  async insertClub(
+    @Arg("name", {nullable: true}) name: string, 
+    @Arg("country", {nullable: true}) country: string,
+  ): Promise<Club>{
+     const club = await this.clubsRepo.insert({name, country})
+
+     return club
   }
 }
 
