@@ -33,7 +33,9 @@ export abstract class MongoRepository<T, U extends AnyParamConstructor<T> = AnyP
     return this.findOne(id)
   }
 
-  public async delete(id: string): Promise<boolean | null> {
-      return this.collection.findByIdAndDelete(id)
+  public async delete(id: string): Promise<boolean> {
+      const result = await this.collection.findByIdAndDelete(id)
+
+      return result ? true : false
   }
 }

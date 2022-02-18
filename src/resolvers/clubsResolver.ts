@@ -63,5 +63,12 @@ export class ClubsResolver {
 
     return club
   }
+
+  @Mutation(returns => Boolean)
+  async deleteClub(
+    @Arg("id", {nullable: false}) id: string,
+  ): Promise<boolean>{
+    return await this.clubsRepo.delete(id)
+  }
 }
 
