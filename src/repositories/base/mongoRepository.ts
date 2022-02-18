@@ -11,7 +11,7 @@ export abstract class MongoRepository<T, U extends AnyParamConstructor<T> = AnyP
     this.collection = getModelForClass<U, T>(cls)
   }
 
-  public async find(item: Partial<T>): Promise<T[]> {
+  public async find(item: Partial<T> = {}): Promise<T[]> {
       return await this.collection.find(item as FilterQuery<T>)
   }
 
@@ -19,7 +19,7 @@ export abstract class MongoRepository<T, U extends AnyParamConstructor<T> = AnyP
       return typeof item === 'string' ? await this.collection.findById(item) : await this.collection.findOne(item as FilterQuery<T>)
   }
 
-  public async insert(item: Partial<T>): Promise<T> {
+  public insert(item: Partial<T>): Promise<T> {
       return this.collection.create(item)
   }
 
