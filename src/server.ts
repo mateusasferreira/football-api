@@ -4,6 +4,7 @@ import dotenv from 'dotenv'
 import express from 'express'
 
 import clubsRoutes from './routes/clubsRoutes'
+import playerRoutes from './routes/playerRoutes'
 
 dotenv.config()
 
@@ -12,6 +13,7 @@ const server = express()
 
 server.use(express.json())
 server.use(clubsRoutes)
+server.use(playerRoutes)
 
 connectDB()
 

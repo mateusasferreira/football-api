@@ -1,7 +1,7 @@
 import {prop} from '@typegoose/typegoose'
 
 export class Club {
-	id: string
+	_id: string
 	
 	@prop({required: true})
 	name: string

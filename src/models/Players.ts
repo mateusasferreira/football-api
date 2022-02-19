@@ -2,7 +2,7 @@ import {prop, Ref} from '@typegoose/typegoose'
 import { Club } from './Clubs'
 
 export class Player {
-	id: string
+	_id: string
 	
 	@prop({required: true})
 	name: string

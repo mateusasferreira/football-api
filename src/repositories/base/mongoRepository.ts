@@ -5,7 +5,7 @@ import { IRead } from "../interfaces/IRead";
 import { IWrite } from "../interfaces/IWrite";
 
 export abstract class MongoRepository<T, U extends AnyParamConstructor<T> = AnyParamConstructor<T>> implements IRead<T>, IWrite<T> {
-  private readonly collection: ReturnModelType<U, T>
+  protected readonly collection: ReturnModelType<U, T>
 
   constructor(cls: U){
     this.collection = getModelForClass<U, T>(cls)
