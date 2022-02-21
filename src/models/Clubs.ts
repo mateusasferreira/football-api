@@ -1,4 +1,5 @@
-import {prop} from '@typegoose/typegoose'
+import {prop, Ref} from '@typegoose/typegoose'
+import { Player } from './Players'
 
 export class Club {
 	_id: string
@@ -8,4 +9,7 @@ export class Club {
 	
 	@prop({required: true})
 	country: string
+
+	@prop({ref: () => Player})
+	players?: Ref<Player>[]
 }

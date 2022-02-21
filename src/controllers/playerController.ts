@@ -49,7 +49,7 @@ export class PlayerController {
       if(!name || !position || !club) throw new Error("Fields name, position and club are required");
       
       const player = await this.playerRepo.insert({name, position, club})
-  
+
       res.status(201).json(player)
     } catch (e) {
       console.log(e)
