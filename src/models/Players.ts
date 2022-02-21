@@ -7,8 +7,8 @@ export class Player {
 	@prop({required: true})
 	name: string
 	
-	@prop({required: true})
-	position: "goalkepper" | "defender" | "midfield" | "forward"
+	@prop({required: true, enum: ['goalkeeper', 'defender', 'midfield', 'forward']})
+	position: string
 	
 	@prop({ref: () => Club})
 	club?: Ref<Club>
