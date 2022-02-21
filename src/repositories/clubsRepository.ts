@@ -4,6 +4,6 @@ import { MongoRepository } from "./base/mongoRepository";
 export class ClubsRepository extends MongoRepository<Club> {
   public override async find(item: Partial<Club> = {}): Promise<Club[]> {
     return await this.collection
-      .aggregate().lookup({from: "players", localField: "_id", foreignField: "club", as: "players"})
+      .aggregate([{$match: item}]).lookup({from: "players", localField: "_id", foreignField: "club", as: "players"})
   }
 }
