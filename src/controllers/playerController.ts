@@ -1,12 +1,13 @@
 import { Request, Response } from "express"
+import { Repository } from "src/repositories/interfaces/IRepository"
 import { Player } from "../models/Players"
-import { PlayersRepository } from "../repositories/playersRepositories"
+// import { PlayersRepository } from "../repositories/playersRepositories"
 
 export class PlayerController {
-  private readonly playerRepo
+  private readonly playerRepo: Repository<Player>
 
-  constructor(){
-    this.playerRepo = new PlayersRepository(Player)
+  constructor(playerRepo:  Repository<Player>){
+    this.playerRepo = playerRepo
   }
 
   async find(req: Request, res: Response){

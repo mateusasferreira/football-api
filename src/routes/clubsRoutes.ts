@@ -1,9 +1,11 @@
 import { Router } from 'express'
+import { Club } from '../models/Clubs'
+import { ClubsRepository } from '../repositories/clubsRepository'
 import { ClubsController } from '../controllers/clubControllers'
 
 const routes = Router()
 
-const clubsController = new ClubsController()
+const clubsController = new ClubsController(new ClubsRepository(Club))
 
 routes.get('/clubs', clubsController.find.bind(clubsController))
 routes.get('/clubs/:id', clubsController.findOne.bind(clubsController))

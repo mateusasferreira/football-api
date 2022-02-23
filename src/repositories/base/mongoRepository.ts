@@ -1,10 +1,10 @@
 import { DocumentType, getModelForClass, ReturnModelType } from "@typegoose/typegoose";
 import { AnyParamConstructor } from "@typegoose/typegoose/lib/types";
 import { FilterQuery } from "mongoose";
-import { IRead } from "../interfaces/IRead";
-import { IWrite } from "../interfaces/IWrite";
+import { Repository } from "../interfaces/IRepository";
 
-export abstract class MongoRepository<T, U extends AnyParamConstructor<T> = AnyParamConstructor<T>> implements IRead<T>, IWrite<T> {
+
+export abstract class MongoRepository<T, U extends AnyParamConstructor<T> = AnyParamConstructor<T>> implements Repository<T> {
   protected readonly collection: ReturnModelType<U, T>
 
   constructor(cls: U){

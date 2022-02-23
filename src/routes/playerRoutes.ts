@@ -1,9 +1,11 @@
 import {Router} from 'express'
+import { Player } from '../models/Players';
+import { PlayersRepository } from '../repositories/playersRepositories';
 import { PlayerController } from "../controllers/playerController";
 
 const routes = Router()
 
-const playerController = new PlayerController()
+const playerController = new PlayerController(new PlayersRepository(Player))
 
 routes.get('/players', playerController.find.bind(playerController))
 routes.get('/players/:id', playerController.findOne.bind(playerController))

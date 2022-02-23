@@ -1,12 +1,13 @@
 import { Request, Response } from "express"
+import { Repository } from "src/repositories/interfaces/IRepository"
 import { Club } from "../models/Clubs"
-import { ClubsRepository } from "../repositories/clubsRepository"
+// import { ClubsRepository } from "../repositories/clubsRepository"
 
 export class ClubsController {
-  private readonly clubsRepo
+  private readonly clubsRepo: Repository<Club>
 
-  constructor(){
-    this.clubsRepo = new ClubsRepository(Club)
+  constructor(clubRepo: Repository<Club>){
+    this.clubsRepo = clubRepo
   }
 
   public async find(req: Request, res: Response){
@@ -19,7 +20,7 @@ export class ClubsController {
       Object.assign(args, name && {name}, country && {country})
 
       const clubs = await this.clubsRepo.find(args)
-
+      
       res.status(200).json(clubs)
     } catch (e) {
       console.log(e)
