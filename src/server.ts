@@ -4,7 +4,7 @@ import dotenv from 'dotenv'
 import express from 'express'
 
 import clubsRoutes from './routes/clubsRoutes'
-import playerRoutes from './routes/playerRoutes'
+import playerRoutes from './routes/playersRoutes'
 
 dotenv.config()
 

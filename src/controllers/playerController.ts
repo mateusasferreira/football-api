@@ -3,7 +3,7 @@ import { Repository } from "src/repositories/interfaces/IRepository"
 import { Player } from "../models/Players"
 // import { PlayersRepository } from "../repositories/playersRepositories"
 
-export class PlayerController {
+export class PlayersController {
   private readonly playerRepo: Repository<Player>
 
   constructor(playerRepo:  Repository<Player>){
