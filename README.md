@@ -195,11 +195,9 @@ ___
 
 ```json
 {
-{
 	"name": "Alba",
 	"position": "forward",
 	"club": "622fbf5f68ca35db239687c4"
-}
 }
 ```
 
