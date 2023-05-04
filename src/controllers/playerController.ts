@@ -1,6 +1,7 @@
-import { Request, Response } from "express"
+import { NextFunction, Request, Response } from "express"
 import { Repository } from "src/repositories/interfaces/IRepository"
 import { Player } from "../models/Players"
+import { HttpException } from "../utils/errors"
 // import { PlayersRepository } from "../repositories/playersRepositories"
 
 export class PlayersController {
@@ -10,7 +11,7 @@ export class PlayersController {
     this.playerRepo = playerRepo
   }
 
-  async find(req: Request, res: Response){
+  async find(req: Request, res: Response, next: NextFunction){
     try {
       const {name, position} = req.query
 
@@ -27,44 +28,42 @@ export class PlayersController {
     }
   }
 
-  async findOne(req: Request, res: Response){
+  async findOne(req: Request, res: Response, next: NextFunction){
     try {
       const {id} = req.params
 
       const player = await this.playerRepo.findOne(id)
 
-      if(!player) throw new Error("No player found");
+      if(!player) throw new HttpException(404, "No player found");
 
       res.status(200).json(player)
     } catch (e) {
-      console.log(e)
-      res.status(400).json({message: e.message})
+      next(e)
     }
   }
 
-  async insert(req: Request, res: Response){
+  async insert(req: Request, res: Response, next: NextFunction){
     try {
 
       const {name, position, club} = req.body
 
-      if(!name || !position || !club) throw new Error("Fields name, position and club are required");
-      
+      if(!name || !position || !club) throw new HttpException(400, "Fields name, position and club are required");
+
       const player = await this.playerRepo.insert({name, position, club})
 
       res.status(201).json(player)
     } catch (e) {
-      console.log(e)
-      res.status(400).json(e.message)
+      next(e)
     }
   }
 
-  async update(req: Request, res: Response){
+  async update(req: Request, res: Response, next: NextFunction){
     try {
 
       const {id} = req.params
-    
+
       const {name, position, club} = req.body
-      
+
       const args = {}
 
       Object.assign(args, name && {name}, position && {position}, club && {club})
@@ -73,12 +72,11 @@ export class PlayersController {
 
       res.status(200).json(player)
     } catch (e) {
-      console.log(e)
-      res.status(400).json(e.message)
+      next(e)
     }
   }
 
-  async delete(req: Request, res: Response){
+  async delete(req: Request, res: Response, next: NextFunction){
     try {
 
       const {id} = req.params
@@ -87,8 +85,7 @@ export class PlayersController {
 
       res.sendStatus(200)
     } catch (e) {
-      console.log(e)
-      res.sendStatus(e)
+      next(e)
     }
   }
 }

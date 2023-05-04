@@ -5,6 +5,7 @@ import express from 'express'
 
 import clubsRoutes from './routes/clubsRoutes'
 import playerRoutes from './routes/playersRoutes'
+import { exceptionFilter } from "./middlewares/exceptionFilter";
 
 dotenv.config()
 
@@ -14,6 +15,7 @@ const server = express()
 server.use(express.json())
 server.use(clubsRoutes)
 server.use(playerRoutes)
+server.use(exceptionFilter)
 
 connectDB()
 
